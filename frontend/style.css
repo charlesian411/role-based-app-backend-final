@@ -1,0 +1,143 @@
+/* Page Display Rules */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Authentication-Based Display */
+body.not-authenticated .role-logged-in {
+    display: none;
+}
+
+body.authenticated .role-logged-out {
+    display: none;
+}
+
+/* Admin Role Display */
+.role-admin {
+    display: none;
+}
+
+body.is-admin .role-admin {
+    display: block;
+}
+
+/* General Styling */
+body {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: none;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Table Styling */
+.table-container {
+    overflow-x: auto;
+}
+
+/* Form Styling */
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Button Styling */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Badge Styling */
+.badge {
+    font-weight: 500;
+}
+
+/* Toast Styling */
+.toast {
+    min-width: 250px;
+}
+
+/* Modal Styling */
+.modal-content {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Request Items Container */
+.request-items-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.request-item {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+}
+
+.request-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Status Badges */
+.status-pending {
+    background-color: #ffc107;
+}
+
+.status-approved {
+    background-color: #198754;
+}
+
+.status-rejected {
+    background-color: #dc3545;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.875rem;
+    }
+    
+    .btn-sm {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* Loading State */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6c757d;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+

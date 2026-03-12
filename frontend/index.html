@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Stack App (Student Build)</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="not-authenticated">
+
+    <!-- Email: admin@example.com
+        Password: Password123! -->
+
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+                <a class="navbar-brand" href="#/">Full-Stack App (Charles Ian Barral)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Logged Out Links -->
+                    <li class="nav-item role-logged-out">
+                        <a class="nav-link" href="#/login">Login</a>
+                    </li>
+                    <li class="nav-item role-logged-out">
+                        <a class="nav-link" href="#/register">Register</a>
+                    </li>
+                    
+                    <!-- Logged In Links -->
+                    <li class="nav-item dropdown role-logged-in">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <span id="username-display">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="#/employees">employees</a></li>
+                            <li><a class="dropdown-item" href="#/accounts">accounts</a></li>
+                            <li><a class="dropdown-item" href="#/departments">dempartments</a></li>
+                            <li><a class="dropdown-item" href="#/requests">My Requests</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logout-btn">Logout</a></li>   
+                        </ul>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        
+        <!-- Home Page -->
+        <section id="home-page" class="page active">
+            <div class="text-center py-5">
+                <h1>Welcome to Full-Stack App</h1>
+                <p class="lead">A static prototype before backend integrations:</p>
+                
+            </div>
+             <ul>
+                    <li>Email registration + fake verification</li>
+                    <li>Login with JWT-like token simulation</li>
+                    <li>Role-based UI (Admin/User)</li>
+                    <li>CRUD for Employees, Department, Request</li>
+                </ul>
+                <button onclick="navigateTo('#/login')">Get Started -></button>
+        </section>
+
+        <!-- Register Page -->
+        <section id="register-page" class="page">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">Register</h2>
+                            <form id="register-form">
+                                <div class="mb-3">
+                                    <label for="reg-firstname" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="reg-firstname" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="reg-lastname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="reg-lastname" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="reg-email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="reg-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="reg-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="reg-password" minlength="6" required>
+                                    <div class="form-text">Minimum 6 characters</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Register</button>
+                            </form>
+                            <div class="mt-3 text-center">
+                                <a href="#/login">Already have an account? Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Verify Email Page -->
+        <section id="verify-email-page" class="page">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h2 class="card-title">Verify Your Email</h2>
+                            <p class="mt-3">Verification email sent to: <strong id="verify-email-display"></strong></p>
+                            <p class="text-muted">Please check your inbox and click the verification link.</p>
+                            <hr>
+                            <p class="text-muted small">For demo purposes, click below to simulate verification:</p>
+                            <button class="btn btn-success" id="simulate-verify-btn">✅ Simulate Email Verification</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Page -->
+        <section id="login-page" class="page">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">Login</h2>
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <label for="login-email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="login-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="login-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="login-password" required>
+                                </div>
+                                <div id="login-error" class="alert alert-danger d-none"></div>
+                                <button type="submit" class="btn btn-primary w-100">Login</button>
+                            </form>
+                            <div class="mt-3 text-center">
+                                <a href="#/register">Don't have an account? Register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Page -->
+        <section id="profile-page" class="page">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">My Profile</h2>
+                            <div id="profile-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Employees Page (Admin) -->
+        <section id="employees-page" class="page">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="card-title mb-0">Employees</h2>
+                        <button class="btn btn-primary" id="add-employee-btn">+ Add Employee</button>
+                    </div>
+                    <div id="employees-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Departments Page (Admin) -->
+        <section id="departments-page" class="page">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="card-title mb-0">Departments</h2>
+                        <button class="btn btn-primary" id="add-department-btn">+ Add Department</button>
+                    </div>
+                    <div id="departments-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accounts Page (Admin) -->
+        <section id="accounts-page" class="page">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="card-title mb-0">Accounts</h2>
+                        <button class="btn btn-primary" id="add-account-btn">+ Add Account</button>
+                    </div>
+                    <div id="accounts-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Requests Page -->
+        <section id="requests-page" class="page">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="card-title mb-0">My Requests</h2>
+                        <button class="btn btn-primary" id="new-request-btn">+ New Request</button>
+                    </div>
+                    <div id="requests-list"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modals will be added here -->
+    
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
