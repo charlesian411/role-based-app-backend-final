@@ -25,6 +25,16 @@ body.is-admin .role-admin {
     display: block;
 }
 
+
+
+/* Admin Dashboard Button Visibility */
+#admin-dashboard-btn {
+    display: none;
+}
+body.is-admin #admin-dashboard-btn {
+    display: inline-block;
+}
+
 /* General Styling */
 body {
     min-height: 100vh;

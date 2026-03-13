@@ -3,10 +3,53 @@ const API_URL = window.location.port === '3000' ? '' : 'http://localhost:3000';
 const STORAGE_KEY = 'ipt_demo_v1';
 let currentUser = null;
 
-// Helper: Get auth header for protected API requests
+// Login with API (from migration guide)
+async function login(username, password) {
+    try {
+        const response = await fetch(`${API_URL}/api/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Save token in memory (or sessionStorage for page refresh)
+            sessionStorage.setItem('authToken', data.token);
+            showDashboard(data.user);
+        } else {
+            alert('Login failed: ' + data.error);
+        }
+    } catch (err) {
+        alert('Network error');
+    }
+}
+
 function getAuthHeader() {
     const token = sessionStorage.getItem('authToken');
     return token ? { 'Authorization': `Bearer ${token}` } : {};
+}
+
+// Example: Fetch admin dashboard data from protected route
+async function loadAdminDashboard() {
+    const output = document.getElementById('admin-dashboard-content');
+    if (!output) return;
+
+    output.innerText = 'Loading...';
+    try {
+        const res = await fetch(`${API_URL}/api/admin/dashboard`, {
+            headers: getAuthHeader()
+        });
+        if (res.ok) {
+            const data = await res.json();
+            output.innerText = data.message;
+        } else {
+            output.innerText = 'Access denied!';
+        }
+    } catch (err) {
+        output.innerText = 'Network error. Is the backend running?';
+    }
 }
 
 // Database structure
@@ -1126,7 +1169,7 @@ function showToast(message, type = 'info') {
     
     toastContainer.insertAdjacentHTML('beforeend', toastHtml);
     const toastElement = document.getElementById(toastId);
-    const toast = new bootstrap.Toast(toastElement, { autohide: true, delay: 3000 });
+    const toast = new bootstrap.Toast(toastElement, { c: true, delay: 3000 });
     toast.show();
     
     // Remove toast element after it's hidden
@@ -1155,6 +1198,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('add-department-btn')?.addEventListener('click', () => showDepartmentModal());
     document.getElementById('add-employee-btn')?.addEventListener('click', () => showEmployeeModal());
     document.getElementById('new-request-btn')?.addEventListener('click', showNewRequestModal);
+    document.getElementById('admin-dashboard-btn')?.addEventListener('click', loadAdminDashboard);
     
     // Set up routing
     window.addEventListener('hashchange', handleRouting);
